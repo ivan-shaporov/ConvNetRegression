@@ -9,7 +9,7 @@ class Learner:
         self.n_output = 1
 
         self.mean = 0.0
-        self.std = 800.0 #/ 100
+        self.std = 800.0
    
         self.beta1 = 0.9
         self.beta2 = 0.999
@@ -141,7 +141,6 @@ class Learner:
         with tf.name_scope("normalize"):
             f, steps = self.toSteps(chunks)
             steps = tf.maximum(tf.minimum(steps, 1000), -1000)
-            #steps = tf.maximum(tf.minimum(steps, 100), -100)
             steps = (steps - self.mean) / self.std
             return (f, steps)
 

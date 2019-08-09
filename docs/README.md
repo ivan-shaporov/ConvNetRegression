@@ -55,11 +55,13 @@ Note: By convention the dimensionality of convnets is one less than the dimensio
 
 Four convolutional layers were interlaced with pooling so that after each conv+pooling the output becomes a power of two fraction in size. The length of each layer's output was decreasing as follows: 1024 input -> 256 -> 64 -> 32 -> 16. Non conventional pooling was implemented. Instead of max-pool or average-pool, it was a convolutional layer with large stride. For example first pooling (second layer) had kernel size 4 and stride 8, effectively reducing the output to 1/4-th of the input.
 
-Having the length of the last pooling output to be 16 the next fully connected layer converted it to a single (16 channels) value. Fully connected layer was also implemented using a convolution with kernel of 16 and stride 16. There was no technical reason to implement fully connected layer like that. It just made experimentation easier with homogeneous layers and varying parameters (kernel size, stride, output channels number).
+Having the length of the last pooling output to be 16, the next fully connected layer converted it to a single (16 channels) value. Fully connected layer was also implemented using a convolution with kernel of 16 and stride 16. There was no technical reason to implement fully connected layer like that. It just made experimentation easier with homogeneous layers and varying parameters (kernel size, stride, output channels number).
 
 Batch normalization layers in the middle didn't show any improvements but introduced training instability. So the batch normalization was not used.
 
 Finally the last layer was purely linear. scaling and shifting the output so that it falls into the required range 45 - 110 bpm.
+
+Recurrent network architecture was considered, but because it didn't perform well in other projects with this kind of data it was out of scope.
 
 ## Results
 
@@ -85,7 +87,7 @@ The result plot of predicted validation set heart rate (vertical axis) versus he
 
 The model is not very precise but shows a strong correlation between the predicted values and the labels. Given that the sensors were not purposed for such tasks and that there are multiple things: a bed, mattress, etc. between the sensors and the human the result is better than anticipated.
 
-Weather it is possible to extract heart rate for the case of more than one person at the same time using this model is not known and seems to be much harder.
+Weather it is possible to extract heart rate for the case of more than one person at the same time, with this model is not known and seems to be much harder.
 
 Having more precise label generator might improve the accuracy of the model.
 
@@ -95,4 +97,4 @@ This is a Machine Learning part of a much larger project. The training of the mo
 
 This repo contains only the model (ConvNetRegression.py) and the code for training it (trainConvNetRegression.py).
 
-The code for reading the sensors, storing the values, downloading the values back, cleaning the data, running a file with the validation data through the model and building the prediction plot above is not included.
+The code for reading the sensors, storing the values, downloading the values back, cleaning the data, running a file with the validation data through the model and building the prediction plot above, is not included.
