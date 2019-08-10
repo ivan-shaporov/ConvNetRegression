@@ -27,7 +27,7 @@ Analog to digital converter (ADC): HX711, 80 samples per second mode. Actual rat
 
 ## Data cleaning/filtering/augmenting.
 
-5 months, 1 measurement every 10 minutes of labeled data was available. The raw data from the sensors was converted to grams using simple linear interpolation based on two points. The subset of the data was selected to include 2050 samples around each label timestamp, which is roughly 20 seconds interval, starting 10 seconds before a label and finishing 10 seconds after.
+8 months, 1 measurement every 10 minutes of labeled data was available. The raw data from the sensors was converted to grams using simple linear interpolation based on two points. The subset of the data was selected to include 2050 samples around each label timestamp, which is roughly 20 seconds interval, starting 10 seconds before a label and finishing 10 seconds after.
 
 Then each 2050 samples batch was split using sliding window into chunks with the length 1025 samples. Then each 50-est (1 chunk out of each 50) was selected. This multiplied the number of available samples.
 
@@ -45,7 +45,7 @@ Because some of the labels contained unusually high heart rates, the data was fu
 
 Before feeding the data into the network each chunk was converted to differences between consecutive measurements, making 1024 samples features out of each 1025 chunk. Given that the data here is not smoothed, the values (deltas) were passed through hard limit filter: maximum(minimum(x, 1000), -1000). Then the data was normalized by scaling and shifting using hardcoded parameters defined by experiments. These transforms removed the DC component of the signal and at the same time reduced the variance of the input.
 
-First 4 months of available data (December, January, February, April) were used as the training set. And June data was used for validation.
+First 7 months of available data (September, October, November, December, January, February, April) were used as the training set. And June data was used for validation.
 
 ## Neral Network Architecture
 
